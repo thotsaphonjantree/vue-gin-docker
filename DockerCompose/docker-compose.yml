@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: "student_register"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+    ports:
+      - "3306:3306"
+    # expose:
+    #   - "3306"
+      
+  client:
+    build: Vue
+    ports:
+      - "3000:80"
+
+  server:
+    build: Gin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
